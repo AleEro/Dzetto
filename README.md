@@ -1,8 +1,8 @@
 # Description
 this is first progeam which i've created for a team of translators
 
-# name:
+# Name:
 Dzetto
 
-# type:
+# Nype:
 multiplatform, or will be so.
