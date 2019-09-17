@@ -6,10 +6,15 @@ class FileButtons(QtWidgets.QDialog):
         super().__init__()
 
         self.root = root
+        
+        # this func will changed when i finish all importants
+        # vacabulary = {en:(*some text*), ru:(some text)} or in type of database
+        
         self.vacabulary = ('original line', 'purposed translate',
                            'your variant', "next", "Cancel", "accept traslate",
                            'move translate to radaction field'
                            )
+        
         self.vbox = QtWidgets.QVBoxLayout()
         self.hbox = QtWidgets.QHBoxLayout()
 
