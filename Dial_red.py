@@ -7,7 +7,7 @@ class FileButtons(QtWidgets.QDialog):
 
         self.root = root
         
-        # this func will changed when i finish all importants
+        # this var will changed when i finish all importants
         # vacabulary = {en:(*some text*), ru:(some text)} or in type of database
         
         self.vacabulary = ('original line', 'purposed translate',
