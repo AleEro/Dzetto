@@ -60,6 +60,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         file_menu.addAction(exit_button)
 
     def choose_scanned_files(self):
+        ### any other moves
         pass
 
     def scan_files_ev(self):
