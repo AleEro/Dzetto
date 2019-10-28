@@ -2,11 +2,11 @@ import yaml
 
 
 def decc(file_name):
-    with open(file_name, "r", encoding="utf-8-sig") as stream:
+    with open(file_name, "r", encoding="utf-8") as stream:
             match_str = stream.read()
-            a = yaml.dump(yaml.load(match_str), default_flow_style=False)
+            a = yaml.load_all(match_str)
             print(a)
-            for key, value in a['i_rus'].items():
+            for key, value in a:
                 #for i1,z1 in z:
                 #    print(z1)
                 print(key + ': ', value)
