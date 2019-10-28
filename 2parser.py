@@ -1,7 +1,7 @@
 import yaml
 
 def decc(file_name):
-    with open(file_name, "r", encoding="utf_8") as stream:
+    with open(file_name, "r", encoding="utf-8-sig") as stream:
             match_str = stream.read()
             a = yaml.load(match_str)
             print(a)
