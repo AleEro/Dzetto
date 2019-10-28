@@ -8,8 +8,9 @@ def decc(file_name):
             print(a)
             for key, value in a['i_rus'].items():
                 #for i1,z1 in z:
-#                    print(z1)
+                #    print(z1)
                 print(key + ': ', value)
             #print(len(a))
+
 
 decc(r'C:\Users\Z510\Desktop\sofe\sofe_technology_l_english — копия.yml')
