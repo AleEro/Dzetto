@@ -9,12 +9,12 @@ class FileButtons(QtWidgets.QDialog):
         self.new_file_names = self.root.new_file_names
         self.setWindowTitle('Choose files to check')
 
-        # self.new_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5",
-        #                      "Checkbox_6", "Checkbox_7", "Checkbox_8", "Checkbox_9", "Checkbox_10"]
-        #
-        # self.old_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5",
-        #                      "Checkbox_6", "Checkbox_7", "Checkbox_8", "Checkbox_9", "Checkbox_10",
-        #                      "Checkbox_6", "Checkbox_7", "Checkbox_8", "Checkbox_9", "Checkbox_10"]
+        self.new_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5",
+                               "Checkbox_6", "Checkbox_7", "Checkbox_8", "Checkbox_9", "Checkbox_10"]
+
+        self.old_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5",
+                               "Checkbox_6", "Checkbox_7", "Checkbox_8", "Checkbox_9", "Checkbox_10",
+                               "Checkbox_6", "Checkbox_7", "Checkbox_8", "Checkbox_9", "Checkbox_10"]
 
         self.setMinimumSize(200, 150)
         self.new_checkboxes = []
