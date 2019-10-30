@@ -42,7 +42,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
         choose_dir = QtWidgets.QAction(QtGui.QIcon(None), 'choose_directory', self)
         choose_dir.setShortcut('Ctrl+Shift+D')
-        # choose_dir.triggered.connect(self.choose_directory)
+        choose_dir.triggered.connect(self.choose_directory)
         file_menu.addAction(choose_dir)
 
         choose_scan_files = QtWidgets.QAction(QtGui.QIcon(None), 'choose_scan_files', self)
