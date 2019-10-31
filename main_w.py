@@ -47,8 +47,8 @@ class AppMainWindow(QtWidgets.QMainWindow):
         exit_button.triggered.connect(app.closeAllWindows)
         file_menu.addAction(exit_button)
 
-        self.width = 1070
-        self.height = 1480
+        self.width = 120
+        self.height = 480
 
         self.setMinimumSize(QtCore.QSize(self.width, self.height))
         self.setWindowIcon(QtGui.QIcon('img\\ico1.png'))
