@@ -100,8 +100,8 @@ class AppMainWindow(QtWidgets.QMainWindow):
         print('called scan_files_ev')
         Tr_window(self).show()
 
-    def parse_file(self, file_name, raw_str=r'''(?P<key>[A-Za-z._0-9 ]*)(?P<value>:[0-9 ]*".+")''', file_encoding="utf_8"):
-        self.element
+    def parse_file(self, file_name, raw_str=r'''(?P<key>^[A-Za-z._0-9]*):(?P<value>.+["]*)''', file_encoding="utf_8"):
+        self.element = []
         print('\nfile_name: ', file_name,
               '\nraw_str: ', raw_str,
               '\nencoding: ', file_encoding,
@@ -139,6 +139,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
                 if i not in l_1:
                     result_file.write(f'{d[j][0]}{d[j][1]}\n')
                     print('абсолютно новые новые',i)
+
         WINDOWS_LINE_ENDING = b'\r\n'
         UNIX_LINE_ENDING = b'\n'
         # перепись кодировки с винды на линку
