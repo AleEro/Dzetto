@@ -1,5 +1,7 @@
+# -*- Encoding: utf-8 -*-
 import os
 import sys
+import re
 from PyQt5 import QtWidgets, QtGui, QtCore
 from translate_window import Tr_window
 from file_dilog_window import FileButtons
@@ -8,7 +10,6 @@ from file_dilog_window import FileButtons
 class AppMainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-
         self.new_file_path = 'E:/proektu/decoder_app/new_files'
         self.new_file_names = []
         self.new_file_directory = []
@@ -19,22 +20,8 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
         self.result_dir_list = []
         self.result_files_list = []
+        self.element = []
 
-        self.width = 640
-        self.height = 480
-
-        self.setMinimumSize(QtCore.QSize(self.width, self.height))
-        self.setWindowIcon(QtGui.QIcon('img\\ico1.png'))
-        self.setWindowTitle('Dzetto')
-
-        self.statusBar().showMessage('for more information check info in main menu')
-        self.text_box_1 = QtWidgets.QTextEdit(self)
-        self.text_box_1.resize(self.width, self.height)
-        self.text_box_1.move(0, 20)
-        self.init_gui()
-        # self.choose_directory()
-
-    def init_gui(self):  # Need to add clean button
         print('def initGUI')
         main_menu = self.menuBar()
         file_menu = main_menu.addMenu('File')
@@ -55,10 +42,22 @@ class AppMainWindow(QtWidgets.QMainWindow):
         scan_files.triggered.connect(self.scan_files_ev)
         compare_menu.addAction(scan_files)
 
-        exit_button = QtWidgets.QAction(QtGui.QIcon(None), 'Exit', self)
+        exit_button = QtWidgets.QAction(QtGui.QIcon(None), 'Quit', self)
         exit_button.setShortcut('Ctrl+Q')
         exit_button.triggered.connect(app.closeAllWindows)
         file_menu.addAction(exit_button)
+
+        self.width = 1070
+        self.height = 1480
+
+        self.setMinimumSize(QtCore.QSize(self.width, self.height))
+        self.setWindowIcon(QtGui.QIcon('img\\ico1.png'))
+        self.setWindowTitle('Dzetto')
+
+        self.statusBar().showMessage('for more information check info in main menu')
+        self.text_box_1 = QtWidgets.QTextEdit(self)
+        self.text_box_1.resize(self.width, self.height)
+        self.text_box_1.move(0, 20)
 
     def choose_directory(self):
         print('def choose_directory')
@@ -66,34 +65,27 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.new_file_path = QtWidgets.QFileDialog().getExistingDirectory(
             None, "Select a new files folder")
         print("new directory: ", self.new_file_path, "\n")
-
+    
         print('\nChoose_OLD_Directory')
         self.old_file_path = QtWidgets.QFileDialog().getExistingDirectory(
             None, "Select a old files folder")
         print("old directory: ", self.old_file_path, "\n")
 
     def choose_scanned_files(self):
-        # call if was'nt
-        # show if hided
         print('def choose_scanned_files')
         print(self.new_file_path)
         print(self.old_file_path)
         if self.new_file_path is None or self.new_file_path is '' or self.old_file_path is '':
             self.choose_directory()
-
         self.new_file_names, self.new_file_directory = self.file_list(self.new_file_path)
         self.old_file_names, self.old_file_directory = self.file_list(self.old_file_path)
         print(self.new_file_names, self.new_file_directory)
         print(self.old_file_names, self.old_file_directory)
-        print('called choose_scanned_files')
-        files_to_check = FileButtons(self)
-        print("window call SUCCESS")
-        files_to_check.show()
-        files_to_check.exec()
+        self.files_to_check = FileButtons(self)
+        self.files_to_check.exec()
 
     def file_list(self, file_path):
         print('def file_list')
-
         file_names = []
         file_dir = []
         # r=root, d=directories, f=files
@@ -105,13 +97,65 @@ class AppMainWindow(QtWidgets.QMainWindow):
         return file_names, file_dir
 
     def scan_files_ev(self):
-        # call if was'nt
-        # show if hided
         print('called scan_files_ev')
-        self.check_file = Tr_window(self)
-        print("window call SUCCESS")
-        self.check_file.show()
-        self.check_file.exec()
+        Tr_window(self).show()
+
+    def parse_file(self, file_name, raw_str=r'''(?P<key>[A-Za-z._0-9 ]*)(?P<value>:[0-9 ]*".+")''', file_encoding="utf_8"):
+        self.element
+        print('\nfile_name: ', file_name,
+              '\nraw_str: ', raw_str,
+              '\nencoding: ', file_encoding,
+              '\nfile: \n')
+    
+        with open(file_name, "r", encoding=file_encoding) as stream:
+            match_str = stream.read()
+            parse_result = re.findall(raw_str, match_str, re.MULTILINE)
+        self.element.append(parse_result)
+        return parse_result
+
+    def text_compare(self, b, d):
+        filename = f'result{strftime("%H_%M")}.yml'
+        with open(filename, 'w', encoding="utf-8-sig") as result_file:
+            result_file.write('l_russian:\n')
+            l_1 = []
+            l_2 = []
+            print('\nold\n')
+            # сортировка старых ключей
+            for i_1 in b:
+                l_1.append(i_1[0])           
+            print('\nnew\n')   
+            # сортировка новых ключей
+            for i_2 in d:
+                l_2.append(i_2[0]) 
+            print('differencies:')
+            # поиск страых существующих ключей
+            for m,n in enumerate(l_1):
+                if n in l_2:
+                    result_file.write(f'{b[m][0]}{b[m][1]}\n')
+                    print('старые живые',n)
+            result_file.write(f'\n###НОЫЕ_СТРОКИ###\n\n')
+            # поиск новых существующих ключей среди старых
+            for j,i in enumerate(l_2):
+                if i not in l_1:
+                    result_file.write(f'{d[j][0]}{d[j][1]}\n')
+                    print('абсолютно новые новые',i)
+        WINDOWS_LINE_ENDING = b'\r\n'
+        UNIX_LINE_ENDING = b'\n'
+        # перепись кодировки с винды на линку
+        with open(filename, 'rb') as open_file:
+            content = open_file.read()
+        content = content.replace(WINDOWS_LINE_ENDING, UNIX_LINE_ENDING)
+        with open(filename, 'wb') as open_file:
+            open_file.write(content)
+    
+    def text_parse(self):
+        a = input('Введите имя старого файла (без расширения): ')
+        c = input('Введите имя нового файла (без расширения): ')
+        b = self.parse_file(file_name=f'{os.path.dirname(__file__)}/{a}.yml')
+        d = self.parse_file(file_name=f'{os.path.dirname(__file__)}/{c}.yml')
+        print('\n\nрабочий каталог: ', os.path.abspath(__file__))
+        self.text_compare(b, d)
+        return print("\nFINISHED")
 
     def closeEvent(self, event):
         print('def closeEvent')
@@ -119,6 +163,8 @@ class AppMainWindow(QtWidgets.QMainWindow):
                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
         if reply == QtWidgets.QMessageBox.Yes:
             print("accepted")
+            self.files_to_check.close()
+            self.check_file.close()
             event.accept()
         else:
             print("ignore")
