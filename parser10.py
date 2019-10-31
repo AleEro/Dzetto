@@ -49,7 +49,7 @@ def text_compare(b, d):
         for j, i in enumerate(l_2):
             if i not in l_1:
                 result_file.write(f'{d[j][0]}{d[j][1]}\n')
-                print('абсолютно новые новые', i)
+                print('абсолютно новые', i)
 
     WINDOWS_LINE_ENDING = b'\r\n'
     UNIX_LINE_ENDING = b'\n'
@@ -64,8 +64,8 @@ def text_compare(b, d):
 def text_parse():
     a = input('Введите имя старого файла (без расширения): ')
     c = input('Введите имя нового файла (без расширения): ')
-    b = parse_file(file_name=f'{os.path.dirname(__file__)}/{a}.yml')
-    d = parse_file(file_name=f'{os.path.dirname(__file__)}/{c}.yml')
+    b = parse_file(file_name=f'{a}')
+    d = parse_file(file_name=f'{c}')
     print('\n\nрабочий каталог: ', os.path.abspath(__file__))
     text_compare(b, d)
     return print("\nFINISHED")

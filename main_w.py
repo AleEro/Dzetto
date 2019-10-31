@@ -5,6 +5,7 @@ import re
 from PyQt5 import QtWidgets, QtGui, QtCore
 from translate_window import Tr_window
 from file_dilog_window import FileButtons
+from time import strftime
 
 
 class AppMainWindow(QtWidgets.QMainWindow):
@@ -113,7 +114,8 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.element.append(parse_result)
         return parse_result
 
-    def text_compare(self, b, d):
+    @staticmethod
+    def text_compare(b, d):
         filename = f'result{strftime("%H_%M")}.yml'
         with open(filename, 'w', encoding="utf-8-sig") as result_file:
             result_file.write('l_russian:\n')
