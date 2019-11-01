@@ -63,7 +63,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.result_files_list = []
         self.element = []
 
-        # -регистрирование доп окон
+        # - регистрирование доп окон
         self.files_to_check = FileButtons(self)
         self.tr_window = Tr_window(self)
 
@@ -133,48 +133,48 @@ class AppMainWindow(QtWidgets.QMainWindow):
         return parse_result
 
     # сравнение файлов
-    def text_compare(self, b, d):
+    @staticmethod
+    def text_compare(b, d):
         filename = f'result{strftime("%H_%M")}.yml'
         with open(filename, 'w', encoding="utf-8-sig") as result_file:
             result_file.write('l_russian:\n')
             l_1 = []
             l_2 = []
-            print('\nold\n')
             # сортировка старых ключей
             for i_1 in b:
                 l_1.append(i_1[0])
-            print('\nnew\n')
             # сортировка новых ключей
             for i_2 in d:
                 l_2.append(i_2[0])
-            print('\ndifferencies:\n')
+
             # поиск страых существующих ключей
             for m, n in enumerate(l_1):
                 if n in l_2:
                     result_file.write(f'{b[m][0]}{b[m][1]}\n')
                     print('старые живые', n)
             result_file.write(f'\n###НОЫЕ_СТРОКИ###\n\n')
+
             # поиск новых существующих ключей среди старых
             for j, i in enumerate(l_2):
                 if i not in l_1:
                     result_file.write(f'{d[j][0]}{d[j][1]}\n')
                     print('абсолютно новые новые', i)
-        WINDOWS_LINE_ENDING = b'\r\n'
-        UNIX_LINE_ENDING = b'\n'
+
         # перепись кодировки с винды на линку
         # мб и не нужно, но пускай будет
+        windows_line_ending = b'\r\n'
+        unix_line_ending = b'\n'
         with open(filename, 'rb') as file_data:
             file_text = file_data.read()
-        file_text = file_text.replace(WINDOWS_LINE_ENDING, UNIX_LINE_ENDING)
+        file_text = file_text.replace(windows_line_ending, unix_line_ending)
         with open(filename, 'wb') as file_data:
             file_data.write(file_text)
 
     # собственно вызывает парсинг файлов
     def text_parse(self):
         """
-        здесь короче нужно переписать на получение списка имен файлов
+        получение списка имен файлов
         """
-
         print('text_parse')
         a = input('Введите имя старого файла (с расширением): ')
         c = input('Введите имя нового файла (с расширением): ')

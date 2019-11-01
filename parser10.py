@@ -51,12 +51,12 @@ def text_compare(b, d):
                 result_file.write(f'{d[j][0]}{d[j][1]}\n')
                 print('абсолютно новые', i)
 
-    WINDOWS_LINE_ENDING = b'\r\n'
-    UNIX_LINE_ENDING = b'\n'
     # перепись кодировки с винды на линку
+    windows_line_ending = b'\r\n'
+    unix_line_ending = b'\n'
     with open(filename, 'rb') as open_file:
         content = open_file.read()
-    content = content.replace(WINDOWS_LINE_ENDING, UNIX_LINE_ENDING)
+    content = content.replace(windows_line_ending, unix_line_ending)
     with open(filename, 'wb') as open_file:
         open_file.write(content)
 
