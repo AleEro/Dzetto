@@ -113,25 +113,27 @@ class AppMainWindow(QtWidgets.QMainWindow):
                     file_dir.append(r)
         return file_names, file_dir
 
-    def scan_files_ev(self):
-        print('called scan_files_ev')
-        Tr_window(self).show()
+    # вызов окна для перевода файлов
+    def translate_w(self):
+        print('translate_w')
+        self.tr_window.show()
 
-    def parse_file(self, file_name, raw_str=r'''(?P<key>^[A-Za-z._0-9]*):(?P<value>.+["]*)''', file_encoding="utf_8"):
-        self.element = []
-        print('\nfile_name: ', file_name,
+    # открытие файла
+    def parse_file(self, file_name, raw_str=r'''(?P<key>^[A-Za-z._0-9]*):(?P<value>.*["]*)''', file_encoding="utf_8"):
+        print(f'\n\n{"-_" in range(15)}',
+              '\nfile_name: ', file_name,
               '\nraw_str: ', raw_str,
               '\nencoding: ', file_encoding,
               '\nfile: \n')
-    
+
         with open(file_name, "r", encoding=file_encoding) as stream:
             match_str = stream.read()
             parse_result = re.findall(raw_str, match_str, re.MULTILINE)
         self.element.append(parse_result)
         return parse_result
 
-    @staticmethod
-    def text_compare(b, d):
+    # сравнение файлов
+    def text_compare(self, b, d):
         filename = f'result{strftime("%H_%M")}.yml'
         with open(filename, 'w', encoding="utf-8-sig") as result_file:
             result_file.write('l_russian:\n')
@@ -140,50 +142,57 @@ class AppMainWindow(QtWidgets.QMainWindow):
             print('\nold\n')
             # сортировка старых ключей
             for i_1 in b:
-                l_1.append(i_1[0])           
-            print('\nnew\n')   
+                l_1.append(i_1[0])
+            print('\nnew\n')
             # сортировка новых ключей
             for i_2 in d:
-                l_2.append(i_2[0]) 
-            print('differencies:')
+                l_2.append(i_2[0])
+            print('\ndifferencies:\n')
             # поиск страых существующих ключей
-            for m,n in enumerate(l_1):
+            for m, n in enumerate(l_1):
                 if n in l_2:
                     result_file.write(f'{b[m][0]}{b[m][1]}\n')
-                    print('старые живые',n)
+                    print('старые живые', n)
             result_file.write(f'\n###НОЫЕ_СТРОКИ###\n\n')
             # поиск новых существующих ключей среди старых
-            for j,i in enumerate(l_2):
+            for j, i in enumerate(l_2):
                 if i not in l_1:
                     result_file.write(f'{d[j][0]}{d[j][1]}\n')
-                    print('абсолютно новые новые',i)
-
+                    print('абсолютно новые новые', i)
         WINDOWS_LINE_ENDING = b'\r\n'
         UNIX_LINE_ENDING = b'\n'
         # перепись кодировки с винды на линку
-        with open(filename, 'rb') as open_file:
-            content = open_file.read()
-        content = content.replace(WINDOWS_LINE_ENDING, UNIX_LINE_ENDING)
-        with open(filename, 'wb') as open_file:
-            open_file.write(content)
-    
+        # мб и не нужно, но пускай будет
+        with open(filename, 'rb') as file_data:
+            file_text = file_data.read()
+        file_text = file_text.replace(WINDOWS_LINE_ENDING, UNIX_LINE_ENDING)
+        with open(filename, 'wb') as file_data:
+            file_data.write(file_text)
+
+    # собственно вызывает парсинг файлов
     def text_parse(self):
-        a = input('Введите имя старого файла (без расширения): ')
-        c = input('Введите имя нового файла (без расширения): ')
+        """
+        здесь короче нужно переписать на получение списка имен файлов
+        """
+
+        print('text_parse')
+        a = input('Введите имя старого файла (с расширением): ')
+        c = input('Введите имя нового файла (с расширением): ')
         b = self.parse_file(file_name=f'{os.path.dirname(__file__)}/{a}.yml')
         d = self.parse_file(file_name=f'{os.path.dirname(__file__)}/{c}.yml')
         print('\n\nрабочий каталог: ', os.path.abspath(__file__))
         self.text_compare(b, d)
         return print("\nFINISHED")
 
+    # подтверждение выхода + закрытие других окон
     def closeEvent(self, event):
         print('def closeEvent')
         reply = QtWidgets.QMessageBox.question(self, 'Quit?', "Do you want quit?",
                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
         if reply == QtWidgets.QMessageBox.Yes:
             print("accepted")
-            self.files_to_check.close()
-            self.check_file.close()
+            self.files_to_check.hide()
+            self.check_file.hide()
             event.accept()
         else:
             print("ignore")
