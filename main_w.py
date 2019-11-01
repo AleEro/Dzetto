@@ -3,15 +3,14 @@ import os
 import sys
 import re
 from PyQt5 import QtWidgets, QtGui, QtCore
-from translate_window import Tr_window
+from translate_window import Trwindow
 from file_dilog_window import FileButtons
 from time import strftime
 
 
 class AppMainWindow(QtWidgets.QMainWindow):
-    def __init__(self):
-        super().__init__()
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         # рисование интерфеса
         self.width = 640
@@ -99,9 +98,9 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.old_file_names, self.old_file_directory = self.file_list(self.old_file_path)
         # print(self.new_file_names, self.new_file_directory)
         # print(self.old_file_names, self.old_file_directory)
-        self.files_to_check = FileButtons(self)
         # self.files_to_check.data_update()
-        self.files_to_check.show()
+        self.files_to_check = FileButtons(self)
+        self.files_to_check.exec()
 
     def file_list(self, file_path):
         print('def file_list')
@@ -118,7 +117,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
     # вызов окна для перевода файлов
     def translate_w(self):
         print('translate_w')
-        self.tr_window = Tr_window(self)
+        self.tr_window = Trwindow(self)
         self.tr_window.show()
 
     # открытие файла
@@ -194,8 +193,10 @@ class AppMainWindow(QtWidgets.QMainWindow):
                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
         if reply == QtWidgets.QMessageBox.Yes:
             print("accepted")
-            self.files_to_check.hide()
-            self.tr_window.hide()
+
+            # self.files_to_check.hide()
+            # self.tr_window.show()
+            # self.tr_window.hide()
             event.accept()
         else:
             print("ignore")

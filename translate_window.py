@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtCore
 
 
-class Tr_window(QtWidgets.QDialog):
+class Trwindow(QtWidgets.QDialog):
     def __init__(self, root):
         super().__init__()
 
@@ -78,14 +78,4 @@ class Tr_window(QtWidgets.QDialog):
 
     def closeEvent(self, event):
         print('def closeEvent')
-        reply = QtWidgets.QMessageBox.question(self, 'Quit?', "Do you want quit?",
-                                               QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
-        if reply == QtWidgets.QMessageBox.Yes:
-            print("accepted")
-            event.accept()
-        elif reply == QtWidgets.QMessageBox.Cancel:
-            print("ignore")
-            event.ignore()
-        else:
-            # hide
-            self.hide()
+        self.hide()

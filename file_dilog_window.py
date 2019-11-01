@@ -6,31 +6,36 @@ class FileButtons(QtWidgets.QDialog):
         super().__init__()
         self.root = root
 
-        self.new_file_names = []
-        self.new_file_directory = []
+        self.new_file_names = self.root.new_file_names
+        self.new_file_directory = self.root.new_file_directory
 
-        self.old_file_names = []
-        self.old_file_directory = []
+        self.old_file_names = self.root.old_file_names
+        self.old_file_directory = self.root.new_file_directory
 
         self.setWindowTitle('Choose files to check')
 
-        #self.new_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
+        # self.new_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
 
-        #self.old_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
+        # self.old_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
 
         print(self.new_file_names, self.new_file_directory)
         print(self.old_file_names, self.old_file_directory)
 
         self.setMinimumSize(200, 150)
+
         self.new_checkboxes = []
         self.new_list_Label_1 = []
         self.new_list_Label_2 = []
+
         self.old_checkboxes = []
         self.old_list_Label_1 = []
         self.old_list_Label_2 = []
 
         self.lb1 = QtWidgets.QLabel(F'new - \n{self.root.new_file_path}', self)
         self.lb2 = QtWidgets.QLabel(F'old - \n{self.root.old_file_path}', self)
+
+        self.b2 = QtWidgets.QPushButton("Accept results")
+        self.b2.clicked.connect(self.accept_results)
 
         grid = QtWidgets.QGridLayout()
         grid.addWidget(self.lb1,
@@ -58,9 +63,6 @@ class FileButtons(QtWidgets.QDialog):
             grid.addWidget(self.old_list_Label_1[i],
                            i+1, 3)
 
-        self.b2 = QtWidgets.QPushButton("Accept results")
-        self.b2.clicked.connect(self.accept_results)
-
         # set the buttons position as last element
         self.last_elem = (len(self.new_file_names)
                           if len(self.new_file_names) > len(self.old_file_names)
@@ -71,13 +73,15 @@ class FileButtons(QtWidgets.QDialog):
         print('setLayout DONE')
         self.setLayout(grid)
 
-    def data_update(self):
-        self.new_file_names = self.root.new_file_names
-        self.new_file_directory = self.root.new_file_directory
+    # def data_update(self):
+    #     self.new_file_names = self.root.new_file_names
+    #     self.new_file_directory = self.root.new_file_directory
+    #
+    #     self.old_file_names = self.root.old_file_names
+    #     self.old_file_directory = self.root.new_file_directory
+    #     print('data_update DONE')
 
-        self.old_file_names = self.root.old_file_names
-        self.old_file_directory = self.root.new_file_directory
-        print('data_update DONE')
+    # - - - - - - - - - - - - -
 
     # def show_menu(self, ):
     #
