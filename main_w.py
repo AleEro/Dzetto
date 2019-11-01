@@ -64,8 +64,8 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.element = []
 
         # - регистрирование доп окон
-        self.files_to_check = FileButtons(self)
-        self.tr_window = Tr_window(self)
+        # self.files_to_check = FileButtons(self)
+        # self.tr_window = Tr_window(self)
 
     # выбор директории
     def choose_directory(self):
@@ -97,8 +97,10 @@ class AppMainWindow(QtWidgets.QMainWindow):
             self.choose_directory()
         self.new_file_names, self.new_file_directory = self.file_list(self.new_file_path)
         self.old_file_names, self.old_file_directory = self.file_list(self.old_file_path)
-        print(self.new_file_names, self.new_file_directory)
-        print(self.old_file_names, self.old_file_directory)
+        # print(self.new_file_names, self.new_file_directory)
+        # print(self.old_file_names, self.old_file_directory)
+        self.files_to_check = FileButtons(self)
+        # self.files_to_check.data_update()
         self.files_to_check.show()
 
     def file_list(self, file_path):
@@ -116,6 +118,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
     # вызов окна для перевода файлов
     def translate_w(self):
         print('translate_w')
+        self.tr_window = Tr_window(self)
         self.tr_window.show()
 
     # открытие файла

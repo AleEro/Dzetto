@@ -5,13 +5,21 @@ class FileButtons(QtWidgets.QDialog):
     def __init__(self, root):
         super().__init__()
         self.root = root
-        self.old_file_names = self.root.old_file_names
-        self.new_file_names = self.root.new_file_names
+
+        self.new_file_names = []
+        self.new_file_directory = []
+
+        self.old_file_names = []
+        self.old_file_directory = []
+
         self.setWindowTitle('Choose files to check')
 
         #self.new_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
 
         #self.old_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
+
+        print(self.new_file_names, self.new_file_directory)
+        print(self.old_file_names, self.old_file_directory)
 
         self.setMinimumSize(200, 150)
         self.new_checkboxes = []
@@ -60,8 +68,16 @@ class FileButtons(QtWidgets.QDialog):
 
         grid.addWidget(self.b2,
                        self.last_elem+1, 2, 1, 2)
-
+        print('setLayout DONE')
         self.setLayout(grid)
+
+    def data_update(self):
+        self.new_file_names = self.root.new_file_names
+        self.new_file_directory = self.root.new_file_directory
+
+        self.old_file_names = self.root.old_file_names
+        self.old_file_directory = self.root.new_file_directory
+        print('data_update DONE')
 
     # def show_menu(self, ):
     #
