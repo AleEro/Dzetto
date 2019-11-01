@@ -51,11 +51,11 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.text_box_1.move(0, 20)
 
         # дополнительные параметры
-        self.new_file_path = 'E:/proektu/decoder_app/new_files'
+        self.new_file_path = ''
         self.new_file_names = []
         self.new_file_directory = []
 
-        self.old_file_path = 'E:/proektu/decoder_app/old_files'
+        self.old_file_path = ''
         self.old_file_names = []
         self.old_file_directory = []
 
@@ -184,7 +184,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.text_compare(b, d)
         return print("\nFINISHED")
 
-    # подтверждение выхода + закрытие других окон
+    # закрытие других окон + подтверждение выхода
     def closeEvent(self, event):
         print('def closeEvent')
         reply = QtWidgets.QMessageBox.question(self, 'Quit?', "Do you want quit?",

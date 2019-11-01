@@ -2,16 +2,16 @@ from PyQt5 import QtWidgets
 
 
 class FileButtons(QtWidgets.QDialog):
-    def __init__(self, root=None):
+    def __init__(self, root):
         super().__init__()
         self.root = root
         self.old_file_names = self.root.old_file_names
         self.new_file_names = self.root.new_file_names
         self.setWindowTitle('Choose files to check')
 
-        self.new_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
+        #self.new_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
 
-        self.old_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
+        #self.old_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
 
         self.setMinimumSize(200, 150)
         self.new_checkboxes = []
@@ -53,7 +53,7 @@ class FileButtons(QtWidgets.QDialog):
         self.b2 = QtWidgets.QPushButton("Accept results")
         self.b2.clicked.connect(self.accept_results)
 
-        # # set the buttons position as last element
+        # set the buttons position as last element
         self.last_elem = (len(self.new_file_names)
                           if len(self.new_file_names) > len(self.old_file_names)
                           else len(self.old_file_names))
@@ -63,17 +63,17 @@ class FileButtons(QtWidgets.QDialog):
 
         self.setLayout(grid)
 
-    def show_menu(self, ):
-
-        for i, v in enumerate(self.new_file_names):
-            self.new_list_Label_1.append('')
-            self.new_checkboxes.append(v)
-            self.new_list_Label_1[i] = QtWidgets.QLabel()
-            self.new_checkboxes[i] = QtWidgets.QCheckBox(v)
-            grid.addWidget(self.new_checkboxes[i],
-                           i+1, 0)
-            grid.addWidget(self.new_list_Label_1[i],
-                           i+1, 1)
+    # def show_menu(self, ):
+    #
+    #     for i, v in enumerate(self.new_file_names):
+    #         self.new_list_Label_1.append('')
+    #         self.new_checkboxes.append(v)
+    #         self.new_list_Label_1[i] = QtWidgets.QLabel()
+    #         self.new_checkboxes[i] = QtWidgets.QCheckBox(v)
+    #         grid.addWidget(self.new_checkboxes[i],
+    #                        i+1, 0)
+    #         grid.addWidget(self.new_list_Label_1[i],
+    #                        i+1, 1)
 
 
     def accept_results(self):
