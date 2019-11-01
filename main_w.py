@@ -192,7 +192,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         if reply == QtWidgets.QMessageBox.Yes:
             print("accepted")
             self.files_to_check.hide()
-            self.check_file.hide()
+            self.tr_window.hide()
             event.accept()
         else:
             print("ignore")

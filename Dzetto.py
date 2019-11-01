@@ -1,7 +1,7 @@
 import os
 import sys
 from PyQt5 import QtWidgets, QtGui, QtCore
-from Dial_red import FileButtons
+from dial_red import FileButtons
 
 
 class AppMainWindow(QtWidgets.QMainWindow):
