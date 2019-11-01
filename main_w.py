@@ -67,20 +67,30 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.files_to_check = FileButtons(self)
         self.tr_window = Tr_window(self)
 
+    # выбор директории
     def choose_directory(self):
-        print('def choose_directory')
-        print('\nChoose_NEW_Directory')
+        print('choose_directory')
         self.new_file_path = QtWidgets.QFileDialog().getExistingDirectory(
             None, "Select a new files folder")
         print("new directory: ", self.new_file_path, "\n")
-    
-        print('\nChoose_OLD_Directory')
+
         self.old_file_path = QtWidgets.QFileDialog().getExistingDirectory(
             None, "Select a old files folder")
         print("old directory: ", self.old_file_path, "\n")
 
+    # вызов окна для выбора и парсинга файлов
     def choose_scanned_files(self):
-        print('def choose_scanned_files')
+        """
+        указание старой папки
+        после чего должно выкинуть все файлы в старой и новой папке
+        в место где лежит прога
+        создать папку с датой + время,а в ней:
+        папка старое
+        папка новое
+        папка результат
+        вывод на основной экран результата действий
+        """
+        print('choose_scanned_files')
         print(self.new_file_path)
         print(self.old_file_path)
         if self.new_file_path is None or self.new_file_path is '' or self.old_file_path is '':
@@ -89,8 +99,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.old_file_names, self.old_file_directory = self.file_list(self.old_file_path)
         print(self.new_file_names, self.new_file_directory)
         print(self.old_file_names, self.old_file_directory)
-        self.files_to_check = FileButtons(self)
-        self.files_to_check.exec()
+        self.files_to_check.show()
 
     def file_list(self, file_path):
         print('def file_list')
