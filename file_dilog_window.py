@@ -31,12 +31,6 @@ class FileDialogWindow(QtWidgets.QDialog):
         self.old_list_Label_1 = []
         self.old_list_Label_2 = []
 
-        self.lb1 = QtWidgets.QLabel(F'new - \n{self.root.new_file_path}', self)
-        self.lb2 = QtWidgets.QLabel(F'old - \n{self.root.old_file_path}', self)
-
-        self.b2 = QtWidgets.QPushButton("Accept results")
-        self.b2.clicked.connect(self.accept_results)
-
     # обновление данных
     def data_update(self):
         self.new_file_names = self.root.new_file_names
@@ -56,10 +50,16 @@ class FileDialogWindow(QtWidgets.QDialog):
         после чего вызывается функция рисования интерфейса show_menu
         """
 
+        lb1 = QtWidgets.QLabel(F'new - \n{self.root.new_file_path}', self)
+        lb2 = QtWidgets.QLabel(F'old - \n{self.root.old_file_path}', self)
+
+        b2 = QtWidgets.QPushButton("Accept results")
+        b2.clicked.connect(self.accept_results)
+
         grid = QtWidgets.QGridLayout()
-        grid.addWidget(self.lb1,
+        grid.addWidget(lb1,
                        0, 0, 1, 2)
-        grid.addWidget(self.lb2,
+        grid.addWidget(lb2,
                        0, 2, 1, 2)
 
         for i, v in enumerate(self.new_file_names):
@@ -87,7 +87,7 @@ class FileDialogWindow(QtWidgets.QDialog):
                      if len(self.new_file_names) > len(self.old_file_names)
                      else len(self.old_file_names))
 
-        grid.addWidget(self.b2,
+        grid.addWidget(b2,
                        last_elem+1, 2, 1, 2)
         print('setLayout DONE')
         self.setLayout(grid)
