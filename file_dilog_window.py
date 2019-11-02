@@ -4,24 +4,22 @@ from PyQt5 import QtWidgets
 class FileDialogWindow(QtWidgets.QDialog):
     def __init__(self, root):
         super().__init__()
-        self.root = root
 
+        # получение данных из основного цикла
+        self.root = root
         self.new_file_names = self.root.new_file_names
         self.new_file_directory = self.root.new_file_directory
 
         self.old_file_names = self.root.old_file_names
         self.old_file_directory = self.root.new_file_directory
 
-        self.setWindowTitle('Choose files to check')
-
-        # self.new_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
-
-        # self.old_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
-
+        # проверка того, что они получены
         print(self.new_file_names, self.new_file_directory)
         print(self.old_file_names, self.old_file_directory)
 
+        # предустановки
         self.setMinimumSize(200, 150)
+        self.setWindowTitle('Choose files to check')
 
         self.new_checkboxes = []
         self.new_list_Label_1 = []
@@ -31,7 +29,11 @@ class FileDialogWindow(QtWidgets.QDialog):
         self.old_list_Label_1 = []
         self.old_list_Label_2 = []
 
-    # обновление данных
+        # строки для тестов
+        # self.new_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
+        # self.old_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
+
+    # обновление данных из основного цикла
     def data_update(self):
         self.new_file_names = self.root.new_file_names
         self.new_file_directory = self.root.new_file_directory
@@ -42,7 +44,7 @@ class FileDialogWindow(QtWidgets.QDialog):
         self.show_menu()
 
     # рисование меню
-    def show_menu(self, ):
+    def show_menu(self):
         """
         по идее после того, как данные были проинициализированы в конструкторе __init__
         их нужно было обновить при каждом вызове
@@ -62,6 +64,8 @@ class FileDialogWindow(QtWidgets.QDialog):
         grid.addWidget(lb2,
                        0, 2, 1, 2)
 
+        # здесь можно было бы организовать классметод
+        # но мне лень
         for i, v in enumerate(self.new_file_names):
             self.new_list_Label_1.append('')
             self.new_checkboxes.append(v)
@@ -82,13 +86,14 @@ class FileDialogWindow(QtWidgets.QDialog):
             grid.addWidget(self.old_list_Label_1[i],
                            i+1, 3)
 
-        # последний элемент
+        # расчет последниего элемента для позиционирования кнопки подтверждения
         last_elem = (len(self.new_file_names)
                      if len(self.new_file_names) > len(self.old_file_names)
                      else len(self.old_file_names))
 
         grid.addWidget(b2,
                        last_elem+1, 2, 1, 2)
+
         print('setLayout DONE')
         self.setLayout(grid)
 
