@@ -73,13 +73,13 @@ class FileButtons(QtWidgets.QDialog):
         print('setLayout DONE')
         self.setLayout(grid)
 
-    # def data_update(self):
-    #     self.new_file_names = self.root.new_file_names
-    #     self.new_file_directory = self.root.new_file_directory
-    #
-    #     self.old_file_names = self.root.old_file_names
-    #     self.old_file_directory = self.root.new_file_directory
-    #     print('data_update DONE')
+    def data_update(self):
+        self.new_file_names = self.root.new_file_names
+        self.new_file_directory = self.root.new_file_directory
+
+        self.old_file_names = self.root.old_file_names
+        self.old_file_directory = self.root.new_file_directory
+        print('data_update DONE')
 
     # - - - - - - - - - - - - -
 
