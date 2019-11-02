@@ -99,7 +99,13 @@ class FileDialogWindow(QtWidgets.QDialog):
 
     # кнопка подтверждения
     def accept_results(self):
+        """
+        здесь вообще творится безумный лес
+        i think i was drunk when wrote this
+        """
         print('def accept_results')
+        self.new_list_Label_2 = []
+        self.old_list_Label_2 = []
         self.root.result_dir_list = []
         self.root.result_files_list = []
         for i, v in enumerate(self.new_checkboxes):

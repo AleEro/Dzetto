@@ -49,7 +49,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.text_box_1.resize(self.width, self.height)
         self.text_box_1.move(0, 20)
 
-        # дополнительные параметры
+        # дополнительные параметры для всего класса
         self.new_file_path = ''
         self.new_file_names = []
         self.new_file_directory = []
@@ -90,10 +90,10 @@ class AppMainWindow(QtWidgets.QMainWindow):
         вывод на основной экран результата действий
         """
         print('choose_scanned_files')
-        print(self.new_file_path)
-        print(self.old_file_path)
+        # проверка на пустые директории
         if self.new_file_path is None or self.new_file_path is '' or self.old_file_path is '':
             self.choose_directory()
+
         self.new_file_names, self.new_file_directory = self.file_list(self.new_file_path)
         self.old_file_names, self.old_file_directory = self.file_list(self.old_file_path)
         # print(self.new_file_names, self.new_file_directory)
@@ -115,8 +115,10 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
     # вызов окна для перевода файлов
     def translate_w(self):
+        """
+        здесь еще стоит разобраться...
+        """
         print('translate_w')
-        self.tr_window = Trwindow(self)
         self.tr_window.show()
 
     # открытие файла
@@ -174,7 +176,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
     # собственно вызывает парсинг файлов
     def text_parse(self):
         """
-        получение списка имен файлов
+        получение имен файлов
         """
         print('text_parse')
         a = input('Введите имя старого файла (с расширением): ')
