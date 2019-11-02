@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets
 
 
-class FileButtons(QtWidgets.QDialog):
+class TrWindow(QtWidgets.QDialog):
     def __init__(self, root):
         super().__init__()
         self.root = root
