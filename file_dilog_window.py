@@ -37,6 +37,25 @@ class TrWindow(QtWidgets.QDialog):
         self.b2 = QtWidgets.QPushButton("Accept results")
         self.b2.clicked.connect(self.accept_results)
 
+    # обновление данных
+    def data_update(self):
+        self.new_file_names = self.root.new_file_names
+        self.new_file_directory = self.root.new_file_directory
+
+        self.old_file_names = self.root.old_file_names
+        self.old_file_directory = self.root.new_file_directory
+        print('data_update DONE')
+        self.show_menu()
+
+    # рисование меню
+    def show_menu(self, ):
+        """
+        по идее после того, как данные были проинициализированы в конструкторе __init__
+        их нужно было обновить при каждом вызове
+        это делает функция data_update
+        после чего вызывается функция рисования интерфейса show_menu
+        """
+
         grid = QtWidgets.QGridLayout()
         grid.addWidget(self.lb1,
                        0, 0, 1, 2)
@@ -63,39 +82,17 @@ class TrWindow(QtWidgets.QDialog):
             grid.addWidget(self.old_list_Label_1[i],
                            i+1, 3)
 
-        # set the buttons position as last element
-        self.last_elem = (len(self.new_file_names)
-                          if len(self.new_file_names) > len(self.old_file_names)
-                          else len(self.old_file_names))
+        # последний элемент
+        last_elem = (len(self.new_file_names)
+                     if len(self.new_file_names) > len(self.old_file_names)
+                     else len(self.old_file_names))
 
         grid.addWidget(self.b2,
-                       self.last_elem+1, 2, 1, 2)
+                       last_elem+1, 2, 1, 2)
         print('setLayout DONE')
         self.setLayout(grid)
 
-    def data_update(self):
-        self.new_file_names = self.root.new_file_names
-        self.new_file_directory = self.root.new_file_directory
-
-        self.old_file_names = self.root.old_file_names
-        self.old_file_directory = self.root.new_file_directory
-        print('data_update DONE')
-
-    # - - - - - - - - - - - - -
-
-    # def show_menu(self, ):
-    #
-    #     for i, v in enumerate(self.new_file_names):
-    #         self.new_list_Label_1.append('')
-    #         self.new_checkboxes.append(v)
-    #         self.new_list_Label_1[i] = QtWidgets.QLabel()
-    #         self.new_checkboxes[i] = QtWidgets.QCheckBox(v)
-    #         grid.addWidget(self.new_checkboxes[i],
-    #                        i+1, 0)
-    #         grid.addWidget(self.new_list_Label_1[i],
-    #                        i+1, 1)
-
-
+    # кнопка подтверждения
     def accept_results(self):
         print('def accept_results')
         self.root.result_dir_list = []
