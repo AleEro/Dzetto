@@ -4,7 +4,7 @@ import sys
 import re
 from PyQt5 import QtWidgets, QtGui, QtCore
 from translate_window import Trwindow
-from file_dilog_window import TrWindow
+from file_dilog_window import FileDialogWindow
 from time import strftime
 
 
@@ -63,8 +63,8 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.element = []
 
         # - регистрирование доп окон
-        # self.files_to_check = FileButtons(self)
-        # self.tr_window = Tr_window(self)
+        self.files_to_check = FileDialogWindow(self)
+        self.tr_window = Trwindow(self)
 
     # выбор директории
     def choose_directory(self):
@@ -98,8 +98,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.old_file_names, self.old_file_directory = self.file_list(self.old_file_path)
         # print(self.new_file_names, self.new_file_directory)
         # print(self.old_file_names, self.old_file_directory)
-        # self.files_to_check.data_update()
-        self.files_to_check = TrWindow(self)
+        self.files_to_check.data_update()
         self.files_to_check.exec()
 
     def file_list(self, file_path):
