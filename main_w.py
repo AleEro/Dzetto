@@ -103,7 +103,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.files_to_check.exec()
 
     def file_list(self, file_path):
-        print('def file_list')
+        print(f'file_list {file_path}')
         file_names = []
         file_dir = []
         # r=root, d=directories, f=files
