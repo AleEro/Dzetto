@@ -6,3 +6,4 @@ Dzetto
 
 # Type:
 multiplatform, or will be so.
+created on windows.
