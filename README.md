@@ -1,5 +1,5 @@
 # Description
-this is first progeam which i've created for a team of translators
+this is first progeam which i've created for the team of translators
 
 # Name:
 Dzetto
