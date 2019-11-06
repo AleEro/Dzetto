@@ -56,6 +56,13 @@ class Trwindow(QtWidgets.QDialog):
 
         self.text_box_3.setText('is aeaasasdad this is aeaasasdad this is aeaasasdad this is aeaasasdad')
 
+        """
+        пока не забыл
+        начинать счетчик строк не с 0 а с 1 
+        з.ы. для первой строки
+        """
+        # self.counter = 1
+
     def next_button(self):
         print('next_button')
         self.root.text_box_1.setText(self.text_box_3.toPlainText())

@@ -33,36 +33,24 @@ class FileDialogWindow(QtWidgets.QDialog):
         # self.new_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
         # self.old_file_names = ["Checkbox_1", "Checkbox_2", "Checkbox_3", "Checkbox_4", "Checkbox_5"]
 
-    # обновление данных из основного цикла
-    def data_update(self):
-        self.new_file_names = self.root.new_file_names
-        self.new_file_directory = self.root.new_file_directory
-
-        self.old_file_names = self.root.old_file_names
-        self.old_file_directory = self.root.new_file_directory
-        print('data_update DONE')
-        self.show_menu()
-
-    # рисование меню
-    def show_menu(self):
+        # прорисовка меню
         """
-        по идее после того, как данные были проинициализированы в конструкторе __init__
-        их нужно было обновить при каждом вызове
-        это делает функция data_update
-        после чего вызывается функция рисования интерфейса show_menu
+        я пробовал добавить это в функцию, 
+        но это плохо кончилось 
+        и я решил, что это должно быть в инициализации, 
+        однако никто не говорил, что кноки нельзя добавлять в конец
+        или все же проще было бы создавать новый экземпляр класса диалог...
         """
-
-        lb1 = QtWidgets.QLabel(F'new - \n{self.root.new_file_path}', self)
-        lb2 = QtWidgets.QLabel(F'old - \n{self.root.old_file_path}', self)
+        self.lb1 = QtWidgets.QLabel(F'new - \n{self.root.new_file_path}', self)
+        self.lb2 = QtWidgets.QLabel(F'old - \n{self.root.old_file_path}', self)
 
         b2 = QtWidgets.QPushButton("Accept results")
         b2.clicked.connect(self.accept_results)
 
-        grid = QtWidgets.QGridLayout()
-        grid.addWidget(lb1,
-                       0, 0, 1, 2)
-        grid.addWidget(lb2,
-                       0, 2, 1, 2)
+        # grid => self.grid  для того что бы перевести сетку в функцию, что будет обновлятся новыми файлами
+        self.grid = QtWidgets.QGridLayout()
+        self.grid.addWidget(self.lb1, 0, 0, 1, 2)
+        self.grid.addWidget(self.lb2, 0, 2, 1, 2)
 
         # здесь можно было бы организовать классметод
         # но мне лень
@@ -71,31 +59,26 @@ class FileDialogWindow(QtWidgets.QDialog):
             self.new_checkboxes.append(v)
             self.new_list_Label_1[i] = QtWidgets.QLabel()
             self.new_checkboxes[i] = QtWidgets.QCheckBox(v)
-            grid.addWidget(self.new_checkboxes[i],
-                           i+1, 0)
-            grid.addWidget(self.new_list_Label_1[i],
-                           i+1, 1)
+            self.grid.addWidget(self.new_checkboxes[i], i+1, 0)
+            self.grid.addWidget(self.new_list_Label_1[i], i+1, 1)
 
         for i, v in enumerate(self.old_file_names):
             self.old_list_Label_1.append('')
             self.old_checkboxes.append(v)
             self.old_list_Label_1[i] = QtWidgets.QLabel()
             self.old_checkboxes[i] = QtWidgets.QCheckBox(v)
-            grid.addWidget(self.old_checkboxes[i],
-                           i+1, 2)
-            grid.addWidget(self.old_list_Label_1[i],
-                           i+1, 3)
+            self.grid.addWidget(self.old_checkboxes[i], i+1, 2)
+            self.grid.addWidget(self.old_list_Label_1[i], i+1, 3)
 
         # расчет последниего элемента для позиционирования кнопки подтверждения
         last_elem = (len(self.new_file_names)
                      if len(self.new_file_names) > len(self.old_file_names)
                      else len(self.old_file_names))
 
-        grid.addWidget(b2,
-                       last_elem+1, 2, 1, 2)
+        self.grid.addWidget(b2, last_elem+1, 2, 1, 2)
 
         print('setLayout DONE')
-        self.setLayout(grid)
+        self.setLayout(self.grid)
 
     # кнопка подтверждения
     def accept_results(self):
@@ -127,4 +110,4 @@ class FileDialogWindow(QtWidgets.QDialog):
                                      \nold \n{self.old_list_Label_2}
                                      \nresultlist of dir are: \n{self.root.result_dir_list}
                                      \nresultlist of fls are: \n{self.root.result_files_list}''')
-        self.hide()
+        self.close()

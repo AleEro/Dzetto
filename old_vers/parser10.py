@@ -16,11 +16,11 @@ def parse_file(file_name, raw_str=r'''(?P<key>^[A-Za-z._0-9]*):(?P<value>.+["]*)
         p = 0
         cotege = {}
         for i in parse_result:
-            #print(i)
+            # print(i)
             cotege[i[0]] = i[1]
-            p += 1
-            #print(i)
-            print(str(i[0]) + ':' + cotege[i[0]])
+        #     p += 1
+        #     # print(i)
+        #     print(str(i[0]) + ':' + cotege[i[0]])
     return parse_result
 
 
@@ -30,28 +30,31 @@ def text_compare(b, d):
         result_file.write('l_russian:\n')
         l_1 = []
         l_2 = []
-        print('\nold\n')
+
         # сортировка старых ключей
         for i_1 in b:
             l_1.append(i_1[0])
-        print('\nnew\n')
+
         # сортировка новых ключей
         for i_2 in d:
             l_2.append(i_2[0])
         print('differencies:')
+
         # поиск страых существующих ключей
         for m, n in enumerate(l_1):
             if n in l_2:
-                result_file.write(f'{b[m][0]}{b[m][1]}\n')
+                result_file.write(f'{b[m][0]}:{b[m][1]}\n')
                 print('старые живые', n)
         result_file.write(f'\n###НОЫЕ_СТРОКИ###\n\n')
+
         # поиск новых существующих ключей среди старых
         for j, i in enumerate(l_2):
             if i not in l_1:
-                result_file.write(f'{d[j][0]}{d[j][1]}\n')
+                result_file.write(f'{d[j][0]}:{d[j][1]}\n')
                 print('абсолютно новые', i)
 
     # перепись кодировки с винды на линку
+    # мб и не нужно но пускай будет
     windows_line_ending = b'\r\n'
     unix_line_ending = b'\n'
     with open(filename, 'rb') as open_file:

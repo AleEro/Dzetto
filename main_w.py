@@ -63,7 +63,6 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.element = []
 
         # - регистрирование доп окон
-        self.files_to_check = FileDialogWindow(self)
         self.tr_window = Trwindow(self)
 
     # выбор директории
@@ -96,10 +95,19 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
         self.new_file_names, self.new_file_directory = self.file_list(self.new_file_path)
         self.old_file_names, self.old_file_directory = self.file_list(self.old_file_path)
-        # print(self.new_file_names, self.new_file_directory)
-        # print(self.old_file_names, self.old_file_directory)
-        self.files_to_check.data_update()
+        """
+        я понимаю, что стрчки ниже не совсем кореектны..
+        но ничего другого я просто не придумал
+        обновление существующих файлов и их прорисовка будет здесь
+        """
+        self.files_to_check = FileDialogWindow(self)
         self.files_to_check.exec()
+        """
+        после того, как результирующие папки получены
+        происходит вызов функции, 
+        которая вызывает парсинг, 
+        отправляя в него имена файлов и их положение на пк
+        """
 
     def file_list(self, file_path):
         print(f'file_list {file_path}')
@@ -195,7 +203,6 @@ class AppMainWindow(QtWidgets.QMainWindow):
         if reply == QtWidgets.QMessageBox.Yes:
             print("accepted")
 
-            # self.files_to_check.hide()
             # self.tr_window.show()
             # self.tr_window.hide()
             event.accept()
