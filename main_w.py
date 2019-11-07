@@ -131,7 +131,6 @@ class AppMainWindow(QtWidgets.QMainWindow):
         print('translate_w')
         self.tr_window.exec()
 
-
     # открытие файла
     def parse_file(self, file_name, raw_str=r'''(?P<key>^[A-Za-z._0-9]*):(?P<value>.*["]*)''', file_encoding="utf_8"):
         print(f'\n\n{"-_" in range(15)}',
