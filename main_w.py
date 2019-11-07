@@ -108,8 +108,10 @@ class AppMainWindow(QtWidgets.QMainWindow):
         которая вызывает парсинг, 
         отправляя в него имена файлов и их положение на пк
         """
+        print("___________continue")
 
-    def file_list(self, file_path):
+    @staticmethod
+    def file_list(file_path):
         print(f'file_list {file_path}')
         file_names = []
         file_dir = []
@@ -127,7 +129,8 @@ class AppMainWindow(QtWidgets.QMainWindow):
         здесь еще стоит разобраться...
         """
         print('translate_w')
-        self.tr_window.show()
+        self.tr_window.exec()
+
 
     # открытие файла
     def parse_file(self, file_name, raw_str=r'''(?P<key>^[A-Za-z._0-9]*):(?P<value>.*["]*)''', file_encoding="utf_8"):
@@ -202,9 +205,6 @@ class AppMainWindow(QtWidgets.QMainWindow):
                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
         if reply == QtWidgets.QMessageBox.Yes:
             print("accepted")
-
-            # self.tr_window.show()
-            # self.tr_window.hide()
             event.accept()
         else:
             print("ignore")
