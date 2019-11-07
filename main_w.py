@@ -163,15 +163,15 @@ class AppMainWindow(QtWidgets.QMainWindow):
             # поиск страых существующих ключей
             for m, n in enumerate(l_1):
                 if n in l_2:
-                    result_file.write(f'{b[m][0]}{b[m][1]}\n')
+                    result_file.write(f'{b[m][0]}:{b[m][1]}\n')
                     print('старые живые', n)
             result_file.write(f'\n###НОЫЕ_СТРОКИ###\n\n')
 
             # поиск новых существующих ключей среди старых
             for j, i in enumerate(l_2):
                 if i not in l_1:
-                    result_file.write(f'{d[j][0]}{d[j][1]}\n')
-                    print('абсолютно новые новые', i)
+                    result_file.write(f'{d[j][0]}:{d[j][1]}\n')
+                    print('абсолютно новые', i)
 
         # перепись кодировки с винды на линку
         # мб и не нужно, но пускай будет

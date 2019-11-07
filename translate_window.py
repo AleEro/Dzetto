@@ -19,9 +19,6 @@ class Trwindow(QtWidgets.QDialog):
         self.text_box_3 = QtWidgets.QTextEdit(self)
         self.text_box_4 = QtWidgets.QTextEdit(self)
         self.text_box_2.setMinimumSize(200, 50)
-        # self.text_box_3 = QtWidgets.QLineEdit(self)
-        # self.text_box_4 = QtWidgets.QLineEdit(self)
-
 
         self.label_2 = QtWidgets.QLabel(self.vacabulary[0])
         self.label_3 = QtWidgets.QLabel(self.vacabulary[1])
