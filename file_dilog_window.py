@@ -56,21 +56,21 @@ class FileDialogWindow(QtWidgets.QDialog):
 
         # здесь можно было бы организовать классметод
         # но мне лень
-        # for i, v in enumerate(self.new_file_names):
-        #     self.new_list_Label_1.append('')
-        #     self.new_checkboxes.append(v)
-        #     self.new_list_Label_1[i] = QtWidgets.QLabel()
-        #     self.new_checkboxes[i] = QtWidgets.QCheckBox(v)
-        #     grid.addWidget(self.new_checkboxes[i], i+1, 0)
-        #     grid.addWidget(self.new_list_Label_1[i], i+1, 1)
-        #
-        # for i, v in enumerate(self.old_file_names):
-        #     self.old_list_Label_1.append('')
-        #     self.old_checkboxes.append(v)
-        #     self.old_list_Label_1[i] = QtWidgets.QLabel()
-        #     self.old_checkboxes[i] = QtWidgets.QCheckBox(v)
-        #     grid.addWidget(self.old_checkboxes[i], i+1, 2)
-        #     grid.addWidget(self.old_list_Label_1[i], i+1, 3)
+        for i, v in enumerate(self.new_file_names):
+            self.new_list_Label_1.append('')
+            self.new_checkboxes.append(v)
+            self.new_list_Label_1[i] = QtWidgets.QLabel()
+            self.new_checkboxes[i] = QtWidgets.QCheckBox(v)
+            grid.addWidget(self.new_checkboxes[i], i+1, 0)
+            grid.addWidget(self.new_list_Label_1[i], i+1, 1)
+
+        for i, v in enumerate(self.old_file_names):
+            self.old_list_Label_1.append('')
+            self.old_checkboxes.append(v)
+            self.old_list_Label_1[i] = QtWidgets.QLabel()
+            self.old_checkboxes[i] = QtWidgets.QCheckBox(v)
+            grid.addWidget(self.old_checkboxes[i], i+1, 2)
+            grid.addWidget(self.old_list_Label_1[i], i+1, 3)
 
         # scrl.setWidget(grid)
         # scrl.setWidgetResizable(True)
@@ -79,7 +79,7 @@ class FileDialogWindow(QtWidgets.QDialog):
         hbox.addWidget(self.lb2)
         vbox.addLayout(hbox)
         # vbox.addWidget(scrl)
-        vbox.addLayout(scrl)
+        vbox.addLayout(grid)
         vbox.addWidget(b2)
         print('setLayout DONE')
         self.setLayout(vbox)
