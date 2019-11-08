@@ -199,17 +199,17 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.text_compare(b, d)
         return print("\nFINISHED")
 
-    # закрытие других окон + подтверждение выхода
-    def closeEvent(self, event):
-        print('def closeEvent')
-        reply = QtWidgets.QMessageBox.question(self, 'Quit?', "Do you want quit?",
-                                               QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
-        if reply == QtWidgets.QMessageBox.Yes:
-            print("accepted")
-            event.accept()
-        else:
-            print("ignore")
-            event.ignore()
+    # # закрытие других окон + подтверждение выхода
+    # def closeEvent(self, event):
+    #     print('def closeEvent')
+    #     reply = QtWidgets.QMessageBox.question(self, 'Quit?', "Do you want quit?",
+    #                                            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
+    #     if reply == QtWidgets.QMessageBox.Yes:
+    #         print("accepted")
+    #         event.accept()
+    #     else:
+    #         print("ignore")
+    #         event.ignore()
 
 
 if __name__ == '__main__':
