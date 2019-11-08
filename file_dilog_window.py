@@ -73,19 +73,14 @@ class FileDialogWindow(QtWidgets.QDialog):
         #     grid.addWidget(self.old_list_Label_1[i], i+1, 3)
 
         # scrl.setWidget(grid)
-        scrl.setWidgetResizable(True)
-        scrl.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        # scrl.setWidgetResizable(True)
+        # scrl.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         hbox.addWidget(self.lb1)
         hbox.addWidget(self.lb2)
         vbox.addLayout(hbox)
         # vbox.addWidget(scrl)
-        # vbox.addLayout(scrl)
+        vbox.addLayout(scrl)
         vbox.addWidget(b2)
-
-        # grid.addWidget(self.lb1, 0, 0, 1, 2)
-        # grid.addWidget(self.lb2, 0, 2, 1, 2)
-        # scrl.setWidget(grid)
-        # grid.addWidget(b2)
         print('setLayout DONE')
         self.setLayout(vbox)
 
