@@ -5,7 +5,17 @@ class Trwindow(QtWidgets.QDialog):
     def __init__(self, root):
         super().__init__()
 
+        # получение данных из основного цикла
         self.root = root
+
+        # проверка того, что они получены
+        # ----
+
+        # предустав=новки
+        self.setWindowFlags(QtCore.Qt.Window)
+        self.setMinimumSize(QtCore.QSize(600, 200))
+
+        # прорисовка окна
         self.setWindowTitle('translate_window')
         self.vacabulary = ('original line', 'purposed translate',
                            'your variant', "next", "Cancel", "accept traslate",
@@ -15,10 +25,9 @@ class Trwindow(QtWidgets.QDialog):
         self.vbox = QtWidgets.QVBoxLayout()
         self.hbox = QtWidgets.QHBoxLayout()
 
-        self.text_box_2 = QtWidgets.QTextEdit(self)
-        self.text_box_3 = QtWidgets.QTextEdit(self)
-        self.text_box_4 = QtWidgets.QTextEdit(self)
-        self.text_box_2.setMinimumSize(200, 50)
+        self.text_box_2 = QtWidgets.QTextEdit('dsadasda')
+        self.text_box_3 = QtWidgets.QTextEdit('aeaasasdad this is aeaasasdad this is aeaasasdad this is aeaasasdad')
+        self.text_box_4 = QtWidgets.QTextEdit()
 
         self.label_2 = QtWidgets.QLabel(self.vacabulary[0])
         self.label_3 = QtWidgets.QLabel(self.vacabulary[1])
@@ -34,6 +43,10 @@ class Trwindow(QtWidgets.QDialog):
         self.traslateButton.clicked.connect(self.traslate_button)
         self.move_to_red.clicked.connect(self.move_to_button)
 
+        self.hbox.addWidget(self.nextButton)
+        self.hbox.addWidget(self.traslateButton)
+        self.hbox.addWidget(self.cancelButton)
+
         self.vbox.addWidget(self.label_2)
         self.vbox.addWidget(self.text_box_2)
         self.vbox.addWidget(self.label_3)
@@ -41,17 +54,9 @@ class Trwindow(QtWidgets.QDialog):
         self.vbox.addWidget(self.move_to_red)
         self.vbox.addWidget(self.label_4)
         self.vbox.addWidget(self.text_box_4)
-
-        self.hbox.addWidget(self.nextButton)
-        self.hbox.addWidget(self.traslateButton)
-        self.hbox.addWidget(self.cancelButton)
-
         self.vbox.addLayout(self.hbox)
 
-        self.setMinimumSize(QtCore.QSize(600, 200))
         self.setLayout(self.vbox)
-
-        self.text_box_3.setText('is aeaasasdad this is aeaasasdad this is aeaasasdad this is aeaasasdad')
 
         """
         пока не забыл

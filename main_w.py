@@ -12,7 +12,23 @@ class AppMainWindow(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # рисование интерфеса
+        # дополнительные параметры для всего класса
+        self.new_file_path = ''
+        self.new_file_names = []
+        self.new_file_directory = []
+
+        self.old_file_path = ''
+        self.old_file_names = []
+        self.old_file_directory = []
+
+        self.result_dir_list = []
+        self.result_files_list = []
+        self.element = []
+
+        # - регистрирование доп окон
+        self.tr_window = Trwindow(self)
+
+        # прорисовка интерфеса
         self.width = 640
         self.height = 480
 
@@ -45,25 +61,10 @@ class AppMainWindow(QtWidgets.QMainWindow):
         exit_button.triggered.connect(app.closeAllWindows)
         file_menu.addAction(exit_button)
 
-        self.text_box_1 = QtWidgets.QTextEdit(self)
-        self.text_box_1.resize(self.width, self.height)
-        self.text_box_1.move(0, 20)
-
-        # дополнительные параметры для всего класса
-        self.new_file_path = ''
-        self.new_file_names = []
-        self.new_file_directory = []
-
-        self.old_file_path = ''
-        self.old_file_names = []
-        self.old_file_directory = []
-
-        self.result_dir_list = []
-        self.result_files_list = []
-        self.element = []
-
-        # - регистрирование доп окон
-        self.tr_window = Trwindow(self)
+        self.text_box_1 = QtWidgets.QTextEdit()
+        self.vbox = QtWidgets.QVBoxLayout()
+        self.vbox.addWidget(self.text_box_1)
+        self.setCentralWidget(self.text_box_1)
 
     # выбор директории
     def choose_directory(self):
@@ -75,6 +76,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.old_file_path = QtWidgets.QFileDialog().getExistingDirectory(
             None, "Select a old files folder")
         print("old directory: ", self.old_file_path, "\n")
+        self.activateWindow()
 
     # вызов окна для выбора и парсинга файлов
     def choose_scanned_files(self):
