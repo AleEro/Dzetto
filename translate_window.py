@@ -17,46 +17,70 @@ class Trwindow(QtWidgets.QDialog):
 
         # прорисовка окна
         self.setWindowTitle('translate_window')
-        self.vacabulary = ('original line', 'purposed translate',
-                           'your variant', "next", "Cancel", "accept traslate",
-                           'move translate to redaction field'
+        self.vacabulary = ('original line',
+                           'purposed translate',
+                           'your variant',
+                           "accept",
+                           "Cancel",
+                           "accept traslate",
+                           'move translate to redaction field',
+                           'prev',
+                           'here will be line numb',
+                           'next'
                            )
 
-        self.vbox = QtWidgets.QVBoxLayout()
-        self.hbox = QtWidgets.QHBoxLayout()
+        self.tr_vbox = QtWidgets.QVBoxLayout()
+        self.tr_hbox = QtWidgets.QHBoxLayout()
+        self.tr_hbox_1 = QtWidgets.QHBoxLayout()
 
-        self.text_box_2 = QtWidgets.QTextEdit('dsadasda')
-        self.text_box_3 = QtWidgets.QTextEdit('aeaasasdad this is aeaasasdad this is aeaasasdad this is aeaasasdad')
-        self.text_box_4 = QtWidgets.QTextEdit()
+        self.tr_text_box_2 = QtWidgets.QTextEdit('here will be line from your old file')
+        self.tr_text_box_3 = QtWidgets.QTextEdit('here line from the translate service')
+        self.tr_text_box_4 = QtWidgets.QTextEdit('here u need to input your variant of translate')
 
         self.label_2 = QtWidgets.QLabel(self.vacabulary[0])
         self.label_3 = QtWidgets.QLabel(self.vacabulary[1])
         self.label_4 = QtWidgets.QLabel(self.vacabulary[2])
 
-        self.nextButton = QtWidgets.QPushButton(self.vacabulary[3])
-        self.cancelButton = QtWidgets.QPushButton(self.vacabulary[4])
-        self.traslateButton = QtWidgets.QPushButton(self.vacabulary[5])
+        self.accept_Button = QtWidgets.QPushButton(self.vacabulary[3])
+        self.accept_Button.clicked.connect(self.accept_func)
+
+        self.cancel_Button = QtWidgets.QPushButton(self.vacabulary[4])
+        self.cancel_Button.clicked.connect(self.cancel_func)
+
+        self.traslate_Button = QtWidgets.QPushButton(self.vacabulary[5])
+        self.traslate_Button.clicked.connect(self.traslate_func)
+
         self.move_to_red = QtWidgets.QPushButton(self.vacabulary[6])
+        self.move_to_red.clicked.connect(self.move_to_red_func)
 
-        self.nextButton.clicked.connect(self.next_button)
-        self.cancelButton.clicked.connect(self.cancel_button)
-        self.traslateButton.clicked.connect(self.traslate_button)
-        self.move_to_red.clicked.connect(self.move_to_button)
+        self.prev_button = QtWidgets.QPushButton(self.vacabulary[7])
+        # self.prev_button.clicked.connect(self.move_to_red_func)
 
-        self.hbox.addWidget(self.nextButton)
-        self.hbox.addWidget(self.traslateButton)
-        self.hbox.addWidget(self.cancelButton)
+        self.cur_string = QtWidgets.QLineEdit(self.vacabulary[8])
+        # self.cur_string.clicked.connect(self.move_to_red_func)
 
-        self.vbox.addWidget(self.label_2)
-        self.vbox.addWidget(self.text_box_2)
-        self.vbox.addWidget(self.label_3)
-        self.vbox.addWidget(self.text_box_3)
-        self.vbox.addWidget(self.move_to_red)
-        self.vbox.addWidget(self.label_4)
-        self.vbox.addWidget(self.text_box_4)
-        self.vbox.addLayout(self.hbox)
+        self.next_button = QtWidgets.QPushButton(self.vacabulary[9])
+        # self.next_button.clicked.connect(self.move_to_red_func)
 
-        self.setLayout(self.vbox)
+        self.tr_hbox.addWidget(self.accept_Button)
+        self.tr_hbox.addWidget(self.traslate_Button)
+        self.tr_hbox.addWidget(self.cancel_Button)
+
+        self.tr_hbox_1.addWidget(self.prev_button)
+        self.tr_hbox_1.addWidget(self.cur_string)
+        self.tr_hbox_1.addWidget(self.next_button)
+
+        self.tr_vbox.addLayout(self.tr_hbox_1)
+        self.tr_vbox.addWidget(self.label_2)
+        self.tr_vbox.addWidget(self.tr_text_box_2)
+        self.tr_vbox.addWidget(self.label_3)
+        self.tr_vbox.addWidget(self.tr_text_box_3)
+        self.tr_vbox.addWidget(self.move_to_red)
+        self.tr_vbox.addWidget(self.label_4)
+        self.tr_vbox.addWidget(self.tr_text_box_4)
+        self.tr_vbox.addLayout(self.tr_hbox)
+
+        self.setLayout(self.tr_vbox)
 
         """
         пока не забыл
@@ -65,25 +89,25 @@ class Trwindow(QtWidgets.QDialog):
         """
         # self.counter = 1
 
-    def next_button(self):
-        print('next_button')
-        self.root.text_box_1.setText(self.text_box_3.toPlainText())
+    def accept_func(self):
+        print('accept_func')
+        self.root.text_box_1.setText(self.tr_text_box_3.toPlainText())
         self.label_2.setText(self.vacabulary[0])
         self.label_3.setText(self.vacabulary[1])
         self.label_4.setText(self.vacabulary[2])
 
-    def cancel_button(self):
-        print('cancel_button')
+    def cancel_func(self):
+        print('cancel_func')
         self.close()
 
-    def traslate_button(self):
+    def traslate_func(self):
         print('traslatelButton')
-        self.root.text_box_1.setText(self.text_box_4.toPlainText())
+        self.root.text_box_1.setText(self.tr_text_box_4.toPlainText())
 
-    def move_to_button(self):
-        print('move_to_button')
-        self.text_box_4.setText(self.text_box_3.toPlainText())
-        self.text_box_3.clear()
+    def move_to_red_func(self):
+        print('move_to_red_func')
+        self.tr_text_box_4.setText(self.tr_text_box_3.toPlainText())
+        self.tr_text_box_3.clear()
 
     def closeEvent(self, event):
         print('def closeEvent')

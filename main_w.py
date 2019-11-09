@@ -24,6 +24,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.result_dir_list = []
         self.result_files_list = []
         self.element = []
+        self.locker = False
 
         # - регистрирование доп окон
         self.tr_window = Trwindow(self)
@@ -41,17 +42,17 @@ class AppMainWindow(QtWidgets.QMainWindow):
         file_menu = main_menu.addMenu('File')
         compare_menu = main_menu.addMenu('compared files')
 
-        choose_dir = QtWidgets.QAction(QtGui.QIcon(None), 'choose_dir', self)
+        choose_dir = QtWidgets.QAction(QtGui.QIcon(None), 'Chose dir', self)
         choose_dir.setShortcut('Ctrl+Shift+D')
         choose_dir.triggered.connect(self.choose_directory)
         file_menu.addAction(choose_dir)
 
-        choose_scan_files = QtWidgets.QAction(QtGui.QIcon(None), 'choose_scan_files', self)
+        choose_scan_files = QtWidgets.QAction(QtGui.QIcon(None), 'Chose files to scan', self)
         choose_scan_files.setShortcut('Ctrl+Shift+F')
         choose_scan_files.triggered.connect(self.choose_scanned_files)
         compare_menu.addAction(choose_scan_files)
 
-        scan_files = QtWidgets.QAction(QtGui.QIcon(None), 'scan_files', self)
+        scan_files = QtWidgets.QAction(QtGui.QIcon(None), 'Translate files', self)
         scan_files.setShortcut('Ctrl+Shift+G')
         scan_files.triggered.connect(self.translate_w)
         compare_menu.addAction(scan_files)
@@ -102,6 +103,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         но ничего другого я просто не придумал
         обновление существующих файлов и их прорисовка будет здесь
         """
+        self.locker = False
         self.files_to_check = FileDialogWindow(self)
         self.files_to_check.exec()
         """
@@ -110,7 +112,9 @@ class AppMainWindow(QtWidgets.QMainWindow):
         которая вызывает парсинг, 
         отправляя в него имена файлов и их положение на пк
         """
-        print("___________continue")
+
+        if self.locker is True:
+            print("___________continue")
 
     @staticmethod
     def file_list(file_path):

@@ -42,13 +42,12 @@ class FileDialogWindow(QtWidgets.QDialog):
         однако никто не говорил, что кноки нельзя добавлять в конец
         или все же проще было бы создавать новый экземпляр класса диалог...
         """
-        self.lb1 = QtWidgets.QLabel(F'new - \n{self.root.new_file_path}')
-        self.lb2 = QtWidgets.QLabel(F'old - \n{self.root.old_file_path}')
-        b2 = QtWidgets.QPushButton("Accept results")
+        self.lb1 = QtWidgets.QLabel(F'Folder for NEW - \n{self.root.new_file_path}')
+        self.lb2 = QtWidgets.QLabel(F'Folder for PLD - \n{self.root.old_file_path}')
+        b2 = QtWidgets.QPushButton("Accept")
         b2.clicked.connect(self.accept_results)
 
         # - присвоение боксов
-        # grid => grid  для того что бы перевести сетку в функцию, что будет обновлятся новыми файлами
         scrollareawidget = QtWidgets.QWidget()
         grid = QtWidgets.QGridLayout(scrollareawidget)
         vbox = QtWidgets.QVBoxLayout(self)
@@ -57,7 +56,7 @@ class FileDialogWindow(QtWidgets.QDialog):
         scrl.setWidgetResizable(True)
 
         # здесь можно было бы организовать классметод
-        # но мне лень
+        # но мне лень пускай работает, пока работает...
         for i, v in enumerate(self.new_file_names):
             self.new_list_Label_1.append('')
             self.new_checkboxes.append(v)
@@ -113,4 +112,5 @@ class FileDialogWindow(QtWidgets.QDialog):
                                      \nold \n{self.old_list_Label_2}
                                      \nresultlist of dir are: \n{self.root.result_dir_list}
                                      \nresultlist of fls are: \n{self.root.result_files_list}''')
+        self.root.locker = True
         self.close()
