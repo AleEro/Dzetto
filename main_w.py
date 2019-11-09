@@ -38,6 +38,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.setWindowTitle('Dzetto')
         self.statusBar().showMessage('for more information check info in main menu')
 
+        # создание доп меню
         main_menu = self.menuBar()
         file_menu = main_menu.addMenu('File')
         compare_menu = main_menu.addMenu('compared files')
@@ -62,6 +63,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         exit_button.triggered.connect(app.closeAllWindows)
         file_menu.addAction(exit_button)
 
+        # добавление text_box_1, будет как лог.
         self.text_box_1 = QtWidgets.QTextEdit()
         self.vbox = QtWidgets.QVBoxLayout()
         self.vbox.addWidget(self.text_box_1)
@@ -98,18 +100,14 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
         self.new_file_names, self.new_file_directory = self.file_list(self.new_file_path)
         self.old_file_names, self.old_file_directory = self.file_list(self.old_file_path)
-        """
-        я понимаю, что стрчки ниже не совсем кореектны..
-        но ничего другого я просто не придумал
-        обновление существующих файлов и их прорисовка будет здесь
-        """
+
         self.locker = False
         self.files_to_check = FileDialogWindow(self)
         self.files_to_check.exec()
         """
         после того, как результирующие папки получены
         происходит вызов функции, 
-        которая вызывает парсинг, 
+        которая выполняет парсинг, 
         отправляя в него имена файлов и их положение на пк
         """
 
@@ -131,9 +129,6 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
     # вызов окна для перевода файлов
     def translate_w(self):
-        """
-        здесь еще стоит разобраться...
-        """
         print('translate_w')
         self.tr_window.exec()
 
@@ -203,19 +198,20 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.text_compare(b, d)
         return print("\nFINISHED")
 
-    # # закрытие других окон + подтверждение выхода
-    # def closeEvent(self, event):
-    #     print('def closeEvent')
-    #     reply = QtWidgets.QMessageBox.question(self, 'Quit?', "Do you want quit?",
-    #                                            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
-    #     if reply == QtWidgets.QMessageBox.Yes:
-    #         print("accepted")
-    #         event.accept()
-    #     else:
-    #         print("ignore")
-    #         event.ignore()
+    # подтверждение выхода из программы
+    def closeEvent(self, event):
+        print('def closeEvent')
+        reply = QtWidgets.QMessageBox.question(self, 'Quit?', "Do you want quit?",
+                                               QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
+        if reply == QtWidgets.QMessageBox.Yes:
+            print("accepted")
+            event.accept()
+        else:
+            print("ignore")
+            event.ignore()
 
 
+#  на случай если программа запускается из оболочки
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     main = AppMainWindow()
