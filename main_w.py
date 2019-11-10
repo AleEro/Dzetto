@@ -121,7 +121,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         # r=root, d=directories, f=files
         for r, d, f in os.walk(file_path):
             for file in f:
-                while ('.yml' in file) and (file not in file_names):
+                if '.yml' in file:
                     file_names.append(file)
                     file_dir.append(r)
         return file_names, file_dir
