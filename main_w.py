@@ -93,7 +93,6 @@ class AppMainWindow(QtWidgets.QMainWindow):
         папка результат
         вывод на основной экран результата действий
         """
-        print('choose_scanned_files')
         # проверка на пустые директории
         if self.new_file_path is None or self.new_file_path is '' or self.old_file_path is '':
             self.choose_directory()
@@ -134,7 +133,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
     # открытие файла
     def parse_file(self, file_name, raw_str=r'''(?P<key>^[A-Za-z._0-9]*):(?P<value>.*["]*)''', file_encoding="utf_8"):
-        print(f'\n\n{"-_" in range(15)}',
+        print(f'\n\n{"-_" *5}',
               '\nfile_name: ', file_name,
               '\nraw_str: ', raw_str,
               '\nencoding: ', file_encoding,
@@ -200,14 +199,11 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
     # подтверждение выхода из программы
     def closeEvent(self, event):
-        print('def closeEvent')
         reply = QtWidgets.QMessageBox.question(self, 'Quit?', "Do you want quit?",
                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
         if reply == QtWidgets.QMessageBox.Yes:
-            print("accepted")
             event.accept()
         else:
-            print("ignore")
             event.ignore()
 
 
