@@ -58,7 +58,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         scan_files.triggered.connect(self.translate_w)
         compare_menu.addAction(scan_files)
 
-        exit_button = QtWidgets.QAction(QtGui.QIcon(None), 'exit_button', self)
+        exit_button = QtWidgets.QAction(QtGui.QIcon(None), 'Quit', self)
         exit_button.setShortcut('Ctrl+Q')
         exit_button.triggered.connect(app.closeAllWindows)
         file_menu.addAction(exit_button)
