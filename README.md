@@ -4,7 +4,7 @@
 this is first progeam which i've created for the team of translators
 
 # How it works:
-- you choose dir for files
+- you choose dir for files (.yml)
 - push "search"
 - you shood see list of files
 - choose 1 in left column and 1 in right
