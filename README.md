@@ -1,5 +1,4 @@
-# Name:
-Dzetto
+# Name: Dzetto
 
 # Description
 this is first progeam which i've created for the team of translators
