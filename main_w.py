@@ -23,11 +23,11 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
         self.result_dir_list = []
         self.result_files_list = []
-        self.element = []
         self.locker = False
 
         # - регистрирование доп окон
         self.tr_window = Trwindow(self)
+        self.files_to_check = FileDialogWindow(self)
 
         # прорисовка интерфеса
         self.width = 640
@@ -83,32 +83,30 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
     # вызов окна для выбора и парсинга файлов
     def choose_scanned_files(self):
-        """
-        указание старой папки
-        после чего должно выкинуть все файлы в старой и новой папке
-        в место где лежит прога
-        создать папку с датой + время,а в ней:
-        папка старое
-        папка новое
-        папка результат
-        вывод на основной экран результата действий
-        """
+        # указание старой папки
+        # после чего должно выкинуть все файлы в старой и новой папке
+        # в место где лежит прога
+        # создать папку с датой + время,а в ней:
+        # папка старое
+        # папка новое
+        # папка результат
+        # вывод на основной экран результата действий
+
         # проверка на пустые директории
-        if self.new_file_path is None or self.new_file_path is '' or self.old_file_path is '':
+        if self.new_file_path is '' or self.old_file_path is '':
             self.choose_directory()
 
         self.new_file_names, self.new_file_directory = self.file_list(self.new_file_path)
         self.old_file_names, self.old_file_directory = self.file_list(self.old_file_path)
 
         self.locker = False
-        self.files_to_check = FileDialogWindow(self)
+
         self.files_to_check.exec()
-        """
-        после того, как результирующие папки получены
-        происходит вызов функции, 
-        которая выполняет парсинг, 
-        отправляя в него имена файлов и их положение на пк
-        """
+
+        # после того, как результирующие папки получены
+        # происходит вызов функции,
+        # которая выполняет парсинг,
+        # отправляя в него имена файлов и их положение на пк
 
         if self.locker is True:
             print("___________continue")
