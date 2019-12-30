@@ -4,11 +4,11 @@
 this is first progeam which i've created for the team of translators
 
 # How it works:
-you choose dir for files
-push "search"
-you shood see list of files
-choose 1 in left column and 1 in right
-in main window will shown diferencies
+- you choose dir for files
+- push "search"
+- you shood see list of files
+- choose 1 in left column and 1 in right
+- in main window will shown diferencies
 
 # Type:
 multiplatform, or will be so.
