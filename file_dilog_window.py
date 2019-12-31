@@ -49,12 +49,13 @@ class FileDialogWindow(QtWidgets.QDialog):
     # кнопка подтверждения
     def accept_results(self):
         
-        self.hide()
+        self.close()
         
-    def closeEvent(self, event):
-         print('def closeEvent')
-         for i in self.left_vbox: 
-            del i
-         for i in self.right_vbox: 
-            del i
+     # def closeEvent(self, event):
+        # self.close()
+         # print('def closeEvent')
+         # for i in self.left_vbox: 
+            # i.deleter
+         # for i in self.right_vbox: 
+            # del i
          
