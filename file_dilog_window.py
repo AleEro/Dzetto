@@ -40,22 +40,19 @@ class FileDialogWindow(QtWidgets.QDialog):
         main_vbox.addWidget(b2)
         
         self.setLayout(main_vbox)
-        
+    
     @staticmethod
     def fill_list(box, file_list):
-        for i, v in enumerate(file_list):
+        for v in file_list:
             box.addWidget(QtWidgets.QCheckBox(v))
-            
+    
     # кнопка подтверждения
     def accept_results(self):
         
         self.close()
-        
-     # def closeEvent(self, event):
-        # self.close()
-         # print('def closeEvent')
-         # for i in self.left_vbox: 
-            # i.deleter
-         # for i in self.right_vbox: 
-            # del i
-         
+    
+    def closeEvent(self, event):
+        print('def closeEvent')
+        # self.left_vbox.deletLater()
+        # self.right_vbox.deletLater()
+        event.accept()
