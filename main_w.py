@@ -8,6 +8,23 @@ from file_dilog_window import FileDialogWindow
 from time import strftime
 import parse_0
 
+"""
+# class File:
+    # def __init__(self, name, dir):
+        # self.name = name
+        # self.dir = dir
+        # self.data = self.data()
+    
+    # def data(self):
+        # with open(f'{self.dir}\\{self.name}') as f:
+            # text = f.read()
+            # return text
+
+# k = File(name='old.yml',
+         # dir=r'C:\Users\KIP\Desktop\my_projects\dzettoapp\old\\')
+# print(k.data)
+"""
+
 
 class AppMainWindow(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
@@ -65,21 +82,18 @@ class AppMainWindow(QtWidgets.QMainWindow):
         file_menu.addAction(exit_button)
         
         self.text_box_1 = QtWidgets.QTextEdit()
-        self.vbox = QtWidgets.QVBoxLayout()
-        self.vbox.addWidget(self.text_box_1)
         self.setCentralWidget(self.text_box_1)
-        
+    
     # выбор директории
     def choose_directory(self):
         self.new_file_path = QtWidgets.QFileDialog().getExistingDirectory(
             None, "Select a new files folder")
-        
         self.old_file_path = QtWidgets.QFileDialog().getExistingDirectory(
             None, "Select a old files folder")
         print("new directory: ", self.new_file_path, "\n")
         print("old directory: ", self.old_file_path, "\n")
         self.activateWindow()
-        
+    
     # вызов окна для выбора и парсинга файлов
     def choose_scanned_files(self):
         # проверка на пустые директории
@@ -93,7 +107,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.files_to_check.fill_list(self.files_to_check.left_vbox, self.new_file_names)
         self.files_to_check.fill_list(self.files_to_check.right_vbox, self.old_file_names)
         self.files_to_check.exec()
-         
+     
     @staticmethod
     def file_list(file_path):
         print(f'file_list {file_path}')
@@ -106,22 +120,19 @@ class AppMainWindow(QtWidgets.QMainWindow):
                     file_names.append(file)
                     file_dir.append(r)
         return file_names, file_dir
-        
+    
     # вызов окна для перевода файлов
     def translate_w(self):
         print('translate_w')
         self.tr_window.exec()
-        
+    
     # закрытие других окон + подтверждение выхода
     def closeEvent(self, event):
-        print('def closeEvent')
         reply = QtWidgets.QMessageBox.question(self, 'Quit?', "Do you want quit?",
                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
         if reply == QtWidgets.QMessageBox.Yes:
-            print("accepted")
             event.accept()
         else:
-            print("ignore")
             event.ignore()
 
 
