@@ -12,7 +12,7 @@ class FileDialogWindow(QtWidgets.QDialog):
         # print(self.new_file_names, self.new_file_directory)
         # print(self.old_file_names, self.old_file_directory)
 
-        # предустановки
+        # предустановки окна
         self.setWindowFlags(QtCore.Qt.Window)
         self.setMinimumSize(600, 150)
         self.setWindowTitle('Choose files to check')

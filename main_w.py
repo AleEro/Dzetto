@@ -47,11 +47,13 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.element = []
         self.locker = False
 
-        # регистрирование доп окон
+        # # регистрирование доп окон
+        # Все могло быть проще если бы каждый раз вызывался новый экземпляр этих класов
+        # но я не считаю, что это правильно
         self.tr_window = Trwindow(self)
         self.files_to_check = FileDialogWindow(self)
 
-        # прорисовка интерфеса
+        # предустановки окна
         self.width = 640
         self.height = 480
 
@@ -60,6 +62,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         self.setWindowTitle('Dzetto')
         self.statusBar().showMessage('for more information check info in main menu')
 
+        # натройка основного меню
         main_menu = self.menuBar()
         file_menu = main_menu.addMenu('File')
         compare_menu = main_menu.addMenu('Compare files')
@@ -74,10 +77,10 @@ class AppMainWindow(QtWidgets.QMainWindow):
         choose_scan_files.triggered.connect(self.choose_scanned_files)
         compare_menu.addAction(choose_scan_files)
 
-        scan_files = QtWidgets.QAction(QtGui.QIcon(None), 'Translate files', self)
-        scan_files.setShortcut('Ctrl+Shift+G')
-        scan_files.triggered.connect(self.translate_w)
-        compare_menu.addAction(scan_files)
+        # scan_files = QtWidgets.QAction(QtGui.QIcon(None), 'Translate files', self)
+        # scan_files.setShortcut('Ctrl+Shift+G')
+        # scan_files.triggered.connect(self.translate_w)
+        # compare_menu.addAction(scan_files)
 
         exit_button = QtWidgets.QAction(QtGui.QIcon(None), 'Exit', self)
         exit_button.setShortcut('Ctrl+Q')
