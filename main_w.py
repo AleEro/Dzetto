@@ -9,9 +9,9 @@ from time import strftime
 
 
 class File:
-    def __init__(self, name, dir, type):
+    def __init__(self, name, directory, type):
         self.name = name
-        self.dir = dir
+        self.dir = directory
         # if OLD
         # type == FALSE
         # else NEW
@@ -35,17 +35,8 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
         # дополнительные параметры для всего класса
         self.new_file_path = ''
-        self.new_file_names = []
-        self.new_file_directory = []
-
         self.old_file_path = ''
-        self.old_file_names = []
-        self.old_file_directory = []
-
-        self.result_dir_list = []
-        self.result_files_list = []
-        self.element = []
-        self.locker = False
+        self.unchecked_files_list = []
 
         # # регистрирование доп окон
         # Все могло быть проще если бы каждый раз вызывался новый экземпляр этих класов
@@ -107,12 +98,12 @@ class AppMainWindow(QtWidgets.QMainWindow):
             self.choose_directory()
             if self.new_file_path is '' or self.old_file_path is '':
                 return
-        self.new_file_names, self.new_file_directory = self.file_list(self.new_file_path)
-        self.old_file_names, self.old_file_directory = self.file_list(self.old_file_path)
+        for i in [self.new_file_path, self.old_file_path]:
+            self.unchecked_files_list = self.file_list(i)
         print('file_dilog_window')
         # self.files_to_check.fill_list(self.files_to_check.left_vbox, self.new_file_names)
         # self.files_to_check.fill_list(self.files_to_check.right_vbox, self.old_file_names)
-        self.files_to_check.show()
+        self.files_to_check.exec()
 
     @staticmethod
     def file_list(file_path):
