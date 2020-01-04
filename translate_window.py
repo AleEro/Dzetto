@@ -11,9 +11,10 @@ class Trwindow(QtWidgets.QDialog):
         # проверка того, что они получены
         # ----
 
-        # предустав=новки
+        # предустановки
         self.setWindowFlags(QtCore.Qt.Window)
         self.setMinimumSize(QtCore.QSize(600, 200))
+        self.counter = 1
 
         # прорисовка окна
         self.setWindowTitle('translate_window')
@@ -26,8 +27,7 @@ class Trwindow(QtWidgets.QDialog):
                            'move translate to redaction field',
                            'prev',
                            'here will be line numb',
-                           'next'
-                           )
+                           'next')
 
         self.tr_vbox = QtWidgets.QVBoxLayout()
         self.tr_hbox = QtWidgets.QHBoxLayout()
@@ -87,7 +87,6 @@ class Trwindow(QtWidgets.QDialog):
         начинать счетчик строк не с 0 а с 1 
         з.ы. для первой строки
         """
-        # self.counter = 1
 
     def accept_func(self):
         print('accept_func')
