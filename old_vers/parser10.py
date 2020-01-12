@@ -1,5 +1,6 @@
 # -*- Encoding: utf-8 -*-
-import re, os
+import re
+import os
 from time import strftime
 
 
@@ -13,7 +14,7 @@ def parse_file(file_name, raw_str=r'''(?P<key>^[A-Za-z._0-9]*):(?P<value>.+["]*)
     with open(file_name, "r", encoding=file_encoding) as stream:
         match_str = stream.read()
         parse_result = re.findall(raw_str, match_str, re.MULTILINE)
-        p = 0
+        # p = 0
         cotege = {}
         for i in parse_result:
             # print(i)
@@ -24,10 +25,12 @@ def parse_file(file_name, raw_str=r'''(?P<key>^[A-Za-z._0-9]*):(?P<value>.+["]*)
     return parse_result
 
 
-def text_compare(b, d):
+def text_compare(b, d, a, c):
     filename = f'result{strftime("%H_%M")}.yml'
     with open(filename, 'w', encoding="utf-8-sig") as result_file:
         result_file.write('l_russian:\n')
+        result_file.write(f'\n# old file - {a}\n')
+        result_file.write(f'# new file - {c}\n\n\n')
         l_1 = []
         l_2 = []
 
@@ -39,23 +42,30 @@ def text_compare(b, d):
         for i_2 in d:
             l_2.append(i_2[0])
 
-        print( 'differencies:',
-               'O - old',
-               'N - new')
+        print('differences:',
+              'O - old',
+              'N - new')
         # поиск страых существующих ключей
-        for m, n in enumerate(l_1):
-            if n in l_2:
-                result_file.write(f'{b[m][0]}:{b[m][1]}\n')
-                # O - old
-                print('O - ', n)
-        result_file.write(f'\n###НОЫЕ_СТРОКИ###\n\n')
+        for number1, key1 in enumerate(l_1):
+            if key1 in l_2:
+                result_file.write(f'{b[number1][0]}:{b[number1][1]}\n')
 
+                for number2, key2 in enumerate(d):
+                    for i in key2:
+                        if i == key1:
+                            result_file.write(f'#  :{d[number2][1]}\n')
+                            # print(d[key2][1])
+
+                # O - old
+                print('O - ', key1)
+
+        result_file.write(f'\n###НОЫЕ_СТРОКИ###\n\n')
         # поиск новых существующих ключей среди старых
-        for j, i in enumerate(l_2):
-            if i not in l_1:
-                result_file.write(f'{d[j][0]}:{d[j][1]}\n')
+        for number2, key2 in enumerate(l_2):
+            if key2 not in l_1:
+                result_file.write(f'{d[number2][0]}:{d[number2][1]}\n')
                 # N - new
-                print('N - ', i)
+                print('N - ', key2)
 
     # перепись кодировки с винды на линку
     # мб и не нужно но пускай будет
@@ -69,12 +79,15 @@ def text_compare(b, d):
 
 
 def text_parse():
-    a = input('Введите путь + имя старого файла (через \\): ')
-    c = input('Введите путь + имя нового файла (через \\): ')
+    # a = input('Введите путь + имя старого файла (через \\): ')
+    # c = input('Введите путь + имя нового файла (через \\): ')
+    a = r'C:\Users\Z510\Desktop\sofe\sofe_technology_l_english.yml'
+    c = r'E:\SteamLibrary\steamapps\workshop\content\281990\1481972266\localisation\english\sofe_technology_l_english' \
+        r'.yml '
     b = parse_file(file_name=f'{a}')
     d = parse_file(file_name=f'{c}')
     print('\n\nрабочий каталог: ', os.path.abspath(__file__))
-    text_compare(b, d)
+    text_compare(b, d, a, c)
     return print("\nFINISHED")
 
 
