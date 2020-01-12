@@ -15,10 +15,10 @@ def parse_file(file_name, raw_str=r'''(?P<key>^[A-Za-z._0-9]*):(?P<value>.+["]*)
         match_str = stream.read()
         parse_result = re.findall(raw_str, match_str, re.MULTILINE)
         # p = 0
-        cotege = {}
-        for i in parse_result:
-            # print(i)
-            cotege[i[0]] = i[1]
+        # cotege = {}
+        # for i in parse_result:
+        #     print(i)
+        #     cotege[i[0]] = i[1]
         #     p += 1
         #     # print(i)
         #     print(str(i[0]) + ':' + cotege[i[0]])
@@ -79,11 +79,13 @@ def text_compare(b, d, a, c):
 
 
 def text_parse():
-    # a = input('Введите путь + имя старого файла (через \\): ')
-    # c = input('Введите путь + имя нового файла (через \\): ')
-    a = r'C:\Users\Z510\Desktop\sofe\sofe_technology_l_english.yml'
-    c = r'E:\SteamLibrary\steamapps\workshop\content\281990\1481972266\localisation\english\sofe_technology_l_english' \
-        r'.yml '
+    example = r"""
+    пример: 
+    C:\Users\Z510\Desktop\sofe\sofe_technology_l_english.yml
+    """
+    print(example)
+    a = input(r'Введите путь \ полное имя старого файла (через \): ')
+    c = input(r'Введите путь \ полное имя нового файла (через \): ')
     b = parse_file(file_name=f'{a}')
     d = parse_file(file_name=f'{c}')
     print('\n\nрабочий каталог: ', os.path.abspath(__file__))
