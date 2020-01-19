@@ -4,7 +4,7 @@ import os
 from time import strftime
 
 
-def parse_file(file_name, raw_str=r'''(?P<key>^[A-Za-z._0-9]*):(?P<value>.+["]*)''', file_encoding="utf_8"):
+def parse_file(file_name, raw_str=r'''(?P<key>^[ A-Za-z._0-9]*):(?P<value>.+["]*)''', file_encoding="utf_8"):
 
     print('\nfile_name: ', file_name,
           '\nraw_str: ', raw_str,
@@ -59,7 +59,9 @@ def text_compare(b, d, a, c):
                 # O - old
                 print('O - ', key1)
 
-        result_file.write(f'\n###НОЫЕ_СТРОКИ###\n\n')
+        if len(l_2) is not len(l_1):
+            result_file.write(f'\n###НОЫЕ_СТРОКИ###\n\n')
+
         # поиск новых существующих ключей среди старых
         for number2, key2 in enumerate(l_2):
             if key2 not in l_1:
