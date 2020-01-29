@@ -45,6 +45,7 @@ def text_compare(b, d, a, c):
         print('differences:',
               'O - old',
               'N - new')
+
         # поиск страых существующих ключей
         for number1, key1 in enumerate(l_1):
             if key1 in l_2:
@@ -55,19 +56,23 @@ def text_compare(b, d, a, c):
                         if i == key1:
                             result_file.write(f'#  :{d[number2][1]}\n')
                             # print(d[key2][1])
-
                 # O - old
                 print('O - ', key1)
 
         if len(l_2) is not len(l_1):
             result_file.write(f'\n###НОЫЕ_СТРОКИ###\n\n')
 
+        new_word_counter = 0
         # поиск новых существующих ключей среди старых
         for number2, key2 in enumerate(l_2):
             if key2 not in l_1:
                 result_file.write(f'{d[number2][0]}:{d[number2][1]}\n')
+
+                new_word_counter += 1
                 # N - new
                 print('N - ', key2)
+
+        print(new_word_counter)
 
     # перепись кодировки с винды на линку
     # мб и не нужно но пускай будет
