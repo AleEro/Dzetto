@@ -9,7 +9,7 @@ def parse_file(file_name, raw_str=r'''(?P<key>^[ A-Za-z._0-9]*):(?P<value>.+["]*
     print('\nfile_name: ', file_name,
           '\nraw_str: ', raw_str,
           '\nencoding: ', file_encoding,
-          '\nfile: \n')
+          '\nfile: Ok\n')
 
     with open(file_name, "r", encoding=file_encoding) as stream:
         match_str = stream.read()
@@ -26,11 +26,13 @@ def parse_file(file_name, raw_str=r'''(?P<key>^[ A-Za-z._0-9]*):(?P<value>.+["]*
 
 
 def text_compare(b, d, a, c):
-    filename = f'result{strftime("%H_%M")}.yml'
+    filename = f'result{strftime("%Y_%m_%d_%H_%M")}.yml'
     with open(filename, 'w', encoding="utf-8-sig") as result_file:
         result_file.write('l_russian:\n')
-        result_file.write(f'\n# old file - {a}\n')
-        result_file.write(f'# new file - {c}\n\n\n')
+        result_file.write(f'\n# Script writed by Aska_Yohko')
+        result_file.write(f'\n# job done - {strftime("%Y_%m_%d_%H_%M_%S")}')
+        result_file.write(f'\n# old file - {a}')
+        result_file.write(f'\n# new file - {c}\n\n')
         l_1 = []
         l_2 = []
 
