@@ -1,4 +1,4 @@
-# Dzetto
+# Dzetto (dead)
 
 # Description
 this is first program which i've created for the team of translators
